@@ -2,7 +2,6 @@ import React from 'react';
 import ItemList from "../item-list/item-list";
 import {withData} from '../hoc-helpers'
 import SwapiService from '../../services/swapi-service'
-import itemList from "../../../../react-gotapp-master/react-gotapp-master/src/components/itemList/itemList";
 
 const swapiService = new SwapiService();
 const {
