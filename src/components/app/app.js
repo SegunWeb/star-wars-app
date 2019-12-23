@@ -7,9 +7,15 @@ import Error from '../errorMessage'
 import ErrorButton from "../error-button";
 
 import './app.css';
+import SwapiService from "../../services/swapi-service";
+import ItemList from "../item-list";
+import PersonDetails from "../person-details";
 
 
 export default class App extends Component {
+
+
+    swapiService = new SwapiService();
 
     state = {
         hasError: false,
@@ -27,11 +33,10 @@ export default class App extends Component {
             <div>
                 <Header/>
                 <RandomPlanet/>
-                <div className="row m-auto  button-row">
+                <div className="row mb2 button-row">
                     <ErrorButton />
                 </div>
                 <PeoplePage />
-
             </div>
         );
     }

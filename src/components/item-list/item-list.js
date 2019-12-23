@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import Spiner from '../spinner/'
 import './item-list.css';
-import SwapiService from "../../services/swapi-service";
-
 
 
 export default class ItemList extends Component {
 
-    swapiServise = new SwapiService();
 
     state = {
         itemList: null,
     };
 
     componentDidMount() {
-        this.swapiServise.getAllPeople()
+
+        const { getData } = this.props;
+
+        getData()
             .then((itemList) => {
                 this.setState({
                     itemList,
@@ -23,7 +23,10 @@ export default class ItemList extends Component {
     }
 
     renderItems(arr) {
-       return arr.map(({id, name}) => {
+       return arr.map((item) => {
+           const {id} = item;
+
+           const label = this.props.renderItem(item);
 
            return (
                <li
@@ -31,7 +34,7 @@ export default class ItemList extends Component {
                    className="list-group-item"
                    onClick={() => this.props.onItemSelected(id)}
                >
-                   {name}
+                   {label}
                </li>
            )
        })
