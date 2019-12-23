@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import ErrorButton from '../error-button'
-// import SwapiService from "../../services/swapi-service";
 import './details.css';
-// import Spiner from '../spinner/'
-
 
 const Record = ({item, field, label}) => {
   return (
@@ -12,13 +9,10 @@ const Record = ({item, field, label}) => {
         <span>{ item[field] }</span>
       </li>
   )
-};
-
+}
 export {Record};
 
 export default class ItemDetails extends Component {
-
-  // swapiServise = new SwapiService();
 
   state = {
     item: null,
@@ -40,7 +34,6 @@ export default class ItemDetails extends Component {
     if(!itemId) {
       return;
     }
-
     getData(itemId)
         .then((item) => {
           this.setState({
@@ -49,7 +42,6 @@ export default class ItemDetails extends Component {
           })
         })
   }
-
 
   render() {
     const { item, image } = this.state;
