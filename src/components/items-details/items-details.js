@@ -9,7 +9,7 @@ const Record = ({item, field, label}) => {
   return (
       <li className="list-group-item">
         <span className="term">{label}</span>
-        <span>{ field }</span>
+        <span>{ item[field] }</span>
       </li>
   )
 };
@@ -52,12 +52,12 @@ export default class ItemDetails extends Component {
 
 
   render() {
-    if(!this.state.item) {
-      return <span>Selected a person from a list</span>
+    const { item, image } = this.state;
+    if (!item) {
+      return <span>Select a item from a list</span>;
     }
+    const { id, name } = item;
 
-    const {id, name, gender, eyeColor, brithYear } = this.state.item;
-    const {image} = this.state;
     return (
 
      <div>
@@ -66,7 +66,11 @@ export default class ItemDetails extends Component {
          <div className="card-body">
            <h4>{name}</h4>
            <ul className="list-group list-group-flush">
-             {this.props.children}
+             {
+               React.Children.map(this.props.children, (child) => {
+                 return React.cloneElement(child, {item})
+               })
+             }
            </ul>
          </div>
        </div>
