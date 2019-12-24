@@ -16,8 +16,9 @@ export default class RandomPlanet extends Component {
   };
 
   componentDidMount() {
+    const { updateIntervel } = this.props;
     this.updatePlanet();
-    this.timerId = setInterval(this.updatePlanet, 2500);
+    this.timerId = setInterval(this.updatePlanet, updateIntervel);
   }
 
   componentWillUnmount() {
@@ -60,7 +61,24 @@ export default class RandomPlanet extends Component {
         </div>
     );
   }
+  static defaultProps = {
+    updateIntervel: 10000
+  };
+
+  static propTypes = {
+    updateIntervel: (props, propName, componentName) => {
+      const value = props[propName];
+
+      if(typeof value === 'number' && !isNaN(value)) {
+        return null;
+      }
+      return new TypeError(`${componentName}: ${propName} must be number`)
+    }
+  }
 }
+// RandomPlanet.defaultProps = {
+//   updateIntervel: 10000
+// };
 
 const View = ({planet}) => {
   const {name , population, rotationPeriod, diameter, id}  = planet;
