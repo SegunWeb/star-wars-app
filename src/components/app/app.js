@@ -4,8 +4,10 @@ import Error from '../errorMessage'
 import Row from "../row"
 import ItemDetails, { Record } from "../items-details/items-details";
 import './app.css';
-import SwapiService from "../../services/swapi-service";
 import ErrorBoundry from "../error-boundry";
+import SwapiService from "../../services/swapi-service";
+import DummySwapiService from "../../services/dummy-swapi-service";
+
 
 import {SwapiServiceProvider} from "../swapi-service-context";
 
@@ -19,11 +21,24 @@ import {
 } from '../sw-components'
 
 
+
 export default class App extends Component {
-    swapiService = new SwapiService();
+
 
     state = {
         hasError: false,
+        swapiService: new DummySwapiService(),
+    };
+
+    onServiceChange = () => {
+        this.setState(({ swapiService }) => {
+            const Service = swapiService instanceof SwapiService
+                ? DummySwapiService : SwapiService;
+            console.log( "-------", Service.name);
+            return {
+                swapiService: new Service()
+            };
+        });
     };
 
     componentDidCatch(error, errorInfo) {
@@ -35,11 +50,45 @@ export default class App extends Component {
             return <Error />
         }
 
+
+
+        const { getPerson,
+            getStarship,
+            getPersonImage,
+            getStarshipImage } = this.state.swapiService;
+
+        const personDetails = (
+            <ItemDetails
+                itemId={11}
+                getData={getPerson}
+                getImageUrl={getPersonImage} >
+
+                <Record field="gender" label="Gender" />
+                <Record field="eyeColor" label="Eye Color" />
+
+            </ItemDetails>
+        );
+
+        const starshipDetails = (
+            <ItemDetails
+                itemId={5}
+                getData={getStarship}
+                getImageUrl={getStarshipImage}>
+
+                <Record field="model" label="Model" />
+                <Record field="length" label="Length" />
+                <Record field="costInCredits" label="Cost" />
+            </ItemDetails>
+        );
+
+
+
+
         return (
             <ErrorBoundry>
-                <SwapiServiceProvider value={this.swapiService}>
+                <SwapiServiceProvider value={this.state.swapiService}>
                     <div className="stardb-app">
-                        <Header />
+                        <Header onServiceChange={this.onServiceChange} />
                         <PersonList />
                         <PlanetList />
                         <StarshipList />
