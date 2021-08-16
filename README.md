@@ -1,4 +1,14 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+Application built with React Redux.
+
+Uses REST API from service https://swapi.dev/
+
+https://segunweb.github.io/star-wars-app/
+
+
+
+
+
 
 ## Available Scripts
 
