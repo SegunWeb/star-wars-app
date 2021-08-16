@@ -18,9 +18,9 @@ const Header = ({onServiceChange}) => {
         <li>
           <Link to="/planets/">Planets</Link>
         </li>
-        <li>
-          <Link to="/starships/">Starships</Link>
-        </li>
+        {/*<li>*/}
+        {/*  <Link to="/starships/">Starships</Link>*/}
+        {/*</li>*/}
           <li>
               <Link to="/login">Login</Link>
           </li>
@@ -28,7 +28,7 @@ const Header = ({onServiceChange}) => {
               <Link to="/secret">Secret</Link>
           </li>
       </ul>
-        <button onClick={onServiceChange} className="btn btn-primary btn-sm"> Change Service </button>
+        {/*<button onClick={onServiceChange} className="btn btn-primary btn-sm"> Change Service </button>*/}
     </div>
   );
 };
